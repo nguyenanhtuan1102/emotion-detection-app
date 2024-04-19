@@ -147,7 +147,7 @@ y_pred_log = log.predict(X_test)
 
 ### 3 - Model Evaluation
 
-Comprehensive model evaluation entails analyzing performance metrics such as precision, recall, and F1-score via the classification report. Additionally, visualization of the confusion matrix provides valuable insights into the model's predictive behavior across different emotion categories.
+Performance metrics such as precision, recall, and F1-score are calculated using the classification report. Confusion matrix visualization provides insights into the model's predictive behavior across different emotion categories.
 
 
 ``` bash
@@ -174,6 +174,70 @@ import pickle
 pickle.dump(log,open('model/log.pkl','wb'))
 pickle.dump(tfidf,open('model/tfidf.pkl','wb'))
 ```
+
+## Web Application
+
+### 1. Loading model
+
+The serialized model and TF-IDF vectorizer are loaded into the application.
+
+``` bash
+log = pickle.load(open("model/log.pkl", "rb"))
+tfidf = pickle.load(open("model/tfidf.pkl", "rb"))
+```
+
+### 2. Clean text
+
+User-entered text is cleaned using the same preprocessing techniques employed during model training.
+
+``` bash
+stopwords_set = set(stopwords.words('english'))
+def clean_text(text):
+    porter = PorterStemmer()
+    text = [porter.stem(word) for word in text.split() if word not in stopwords_set]
+    return " ".join(text)
+```
+
+### 3. Create programe
+
+The cleaned text is passed through the model to generate predictions on the user's emotion.
+
+``` bash
+def main():
+    st.title("Sentiment Analysis")
+    comment = st.text_input("Enter Your Comment")
+    button = st.button("Analyze")
+
+    if button:
+        text = comment.title()
+        cleaned = clean_text(text)
+        input_feature = tfidf.transform([cleaned])
+        predictions = log.predict(input_feature)[0]
+
+        # Map category ID to category name
+        emotion_labels = {
+            0: "SADNESS",
+            1: "JOY",
+            2: "LOVE",
+            3: "ANGER",
+            4: "FEAR",
+            5: "SURPRICE"
+        }
+
+        emotions = emotion_labels.get(predictions, "Unknown")
+        st.write("Emotion: ", emotions)
+
+if __name__ == '__main__':
+    main()
+```
+
+![sen-desktop](https://github.com/tuanng1102/emotion-detection-app/assets/147653892/2464e2c5-e861-4d73-96db-694c92a2742e)
+
+### 4. Make a prediction
+
+Write a comment and analyze it by application.
+
+![sen-predict](https://github.com/tuanng1102/emotion-detection-app/assets/147653892/510f48e9-6fef-4edf-8e74-a2b383496f9e)
 
 ## Conclusion
 
