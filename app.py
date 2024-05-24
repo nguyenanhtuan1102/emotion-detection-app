@@ -8,7 +8,9 @@ log = pickle.load(open("model/log.pkl", "rb"))
 tfidf = pickle.load(open("model/tfidf.pkl", "rb"))
 
 # clean text
+nltk.download('stopwords')
 stopwords_set = set(stopwords.words('english'))
+
 def clean_text(text):
     porter = PorterStemmer()
     text = [porter.stem(word) for word in text.split() if word not in stopwords_set]
