@@ -1,8 +1,8 @@
-# Emotions Detection Model
+# EMOTIONS DETECTION APP
 
 Emotion detection is the study of using artificial intelligence to identify and categorize emotions expressed in text. By applying machine learning algorithms to analyze written communication, researchers aim to uncover insights into human sentiment and behavior. This field holds great potential for applications in various domains, including mental health, customer service, and social media analysis. However, it also presents challenges related to accuracy, ethics, and cultural context. Overall, emotion detection represents an exciting frontier in understanding and leveraging human emotions in the digital era.
 
-![3585223_66180](https://github.com/tuanng1102/sentiment-analysis-app/assets/147653892/d0dc28c7-4244-43e4-bba4-9ea52e85a5af)
+![emotions-de](https://github.com/user-attachments/assets/61e596da-b46d-45ed-8ab2-7c92d176b259)
 
 ## Project Overview
 
